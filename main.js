@@ -1,4 +1,13 @@
 $(document).ready(() => {
+
+  const userString = localStorage.getItem('convention_tracker_user') || "{}";
+  const { userName, full_name } = JSON.parse(userString);
+
+  console.log(userName, full_name)
+
+  if (!userName) {
+    window.location.href = "new_user";
+  }
   const tdString = `
     <tr class='data-row' id="{CONVENTION_ID}">
       <td>{CONVENTION_NAME}</td>
@@ -80,6 +89,16 @@ $(document).ready(() => {
     }
 
     processTdString(values);
+
+    $.ajax({
+      method: 'POST',
+      url: 'new',
+      data: values,
+    }).then((data) => {
+      console.log(data)
+    }).catch((err) => {
+      console.log(err)
+    })
   });
 
 });
