@@ -45,11 +45,12 @@ $(document).ready(() => {
       data: newUser,
     }).then((result) => {
       localStorage.setItem('convention_tracker_user', JSON.stringify(result));
+      window.location.href = "/";
+
     }).catch((err) => {
       console.log(err)
     })
 
-    window.location.href = "/";
   });
 
 });
