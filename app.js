@@ -32,7 +32,18 @@ app.get('/new_user', function(req, res) {
 app.get('/conventions', function(req, res) {
   Convention.find({}, function(err, data) {
     if (err) res.send('ERROR')
-    // console.log(data)
+    console.log(data);
+
+    function compare(a,b) {
+      if (a.convention_start_date < b.convention_start_date)
+        return -1;
+      if (a.convention_start_date > b.convention_start_date)
+        return 1;
+      return 0;
+    }
+
+    data = (data || []).sort(compare);
+
     res.send(data || []);
   })
 });
