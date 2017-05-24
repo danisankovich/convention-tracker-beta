@@ -3,7 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser')
 var mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost:contracker');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:contracker');
 
 
 var Convention = require('./models/convention');
