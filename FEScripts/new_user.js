@@ -3,6 +3,9 @@ $(document).ready(() => {
   const userString = localStorage.getItem('convention_tracker_user') || "{}";
   const userName = JSON.parse(userString).userName;
 
+  if (userName) {
+    window.location.href = "/";
+  }
   $('#form_submit').submit((e) => {
     e.preventDefault();
 

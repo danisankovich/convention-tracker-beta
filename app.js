@@ -26,7 +26,8 @@ app.get('/new_user', function(req, res) {
 
 app.get('/conventions', function(req, res) {
   Convention.find({}, function(err, data) {
-    console.log(data)
+    if (err) res.send('ERROR')
+    // console.log(data)
     res.send(data || []);
   })
 });
@@ -36,7 +37,6 @@ app.post('/new', function(req, res) {
 
   Convention.findOne({ convention_name: req.body.convention_name }, (err, convention) => {
     if (err) return next(err);
-    console.log(req.user, req.body.stickied)
 
     if (convention) {
       return res.status(422).send({error: 'Convention Already Exists'});
@@ -47,6 +47,30 @@ app.post('/new', function(req, res) {
       newConvention.save();
       res.send(newConvention);
     }
+  });
+});
+
+app.post('/join', function(req, res) {
+  Convention.findById(req.body._id, (err, convention) => {
+    if (err) return next(err);
+
+    if (convention.participant_list.indexOf(req.body.full_name) > -1) {
+      return res.status(422).send({error: 'You Are Already Listed'});
+    }
+
+    convention.participant_list.push(req.body.full_name);
+    convention.save();
+    res.send(convention);
+  });
+})
+
+app.post('/leave', function(req, res) {
+  Convention.findById(req.body._id, (err, convention) => {
+    if (err) return next(err);
+
+    convention.participant_list = req.body.participant_list;
+    convention.save();
+    res.send(convention);
   });
 })
 
