@@ -25,39 +25,24 @@ $(document).ready(() => {
     let tdStringCopy = tdString;
 
     tdStringCopy = tdStringCopy
-      .replace(/{CONVENTION_ID}/g, `${values.convention_name}-${values.convention_start_date}-${values.convention_end_date}`)
+      .replace(/{CONVENTION_ID}/g, values._id)
       .replace("{CONVENTION_NAME}", values.convention_name)
       .replace("{CONVENTION_LOCATION}", values.convention_location)
-      .replace("{PARTICIPANT_LIST}", "Michael Sankovich")
+      .replace("{PARTICIPANT_LIST}", values.participant_list)
       .replace("{CONVENTION_START_DATE}", values.convention_start_date)
       .replace("{CONVENTION_END_DATE}", values.convention_end_date);
 
     $('#table_stuff tr:last').after(tdStringCopy);
   }
 
-  [
-    {
-      convention_name: "first",
-      convention_start_date: "2017-07-03",
-      convention_end_date: "2017-07-08",
-      convention_location: "first place",
-    }, {
-      convention_name: "second",
-      convention_start_date: "2017-07-03",
-      convention_end_date: "2017-07-08",
-      convention_location: "second place",
-    }, {
-      convention_name: "third",
-      convention_start_date: "2017-07-03",
-      convention_end_date: "2017-07-08",
-      convention_location: "third place",
-    }, {
-      convention_name: "fourth",
-      convention_start_date: "2017-07-03",
-      convention_end_date: "2017-07-08",
-      convention_location: "fourth place",
-    }
-  ].forEach(e => processTdString(e));
+  $.ajax({
+    method: 'GET',
+    url: 'conventions',
+  }).then((data) => {
+    data.forEach(e => processTdString(e));
+  }).catch((err) => {
+    console.log(err)
+  })
 
   $('#form_submit').submit((e) => {
     e.preventDefault();
@@ -87,15 +72,14 @@ $(document).ready(() => {
       alert("All Fields are Required");
       return;
     }
-
-    processTdString(values);
+    values.participant_list = [full_name];
 
     $.ajax({
       method: 'POST',
       url: 'new',
       data: values,
     }).then((data) => {
-      console.log(data)
+      processTdString(data);
     }).catch((err) => {
       console.log(err)
     })
