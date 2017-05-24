@@ -12,6 +12,7 @@
 
   <body>
     <div class="container">
+      <div id="usernameFullName"></div>
       <div class="row">
         <div class="col-sm-12 col-md-10 col-md-offset-1">
           <table class="table" id="table_stuff">
@@ -29,16 +30,20 @@
       <div class='row'>
         <form id="form_submit">
           <div class="col-sm-12 col-md-10 col-md-offset-1">
+            <label for="convention_name">Convention Name</label>
             <input class="form-control" type="text" placeholder="Convention Name" id="convention_name" />
           </div>
           <div class="col-sm-5 col-md-5 col-md-offset-1 col-lg-5 col-lg-offset-1">
+            <label for="convention_start_date">Start Date</label>
             <input class="form-control" type="date" placeholder="Convention Start Date" id="convention_start_date" />
           </div>
           <div class="col-sm-5 col-md-5 col-sm-offset-2 col-md-offset-0 col-lg-5">
+            <label for="convention_end_date">End Date</label>
             <input class="form-control" type="date" placeholder="Convention End Date" id="convention_end_date" />
           </div>
           <div class="col-sm-12 col-md-10 col-md-offset-1">
-            <input class="form-control" type="text" placeholder="Convention Location" id="convention_location" />
+            <label for="convention_location">Convention Location</label>
+            <input class="form-control" type="text" placeholder="Convention Location (City, State)" id="convention_location" />
           </div>
           <div class="col-sm-12 col-md-10 col-md-offset-1">
             <input class="form-control btn btn-primary" type="submit">

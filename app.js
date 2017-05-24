@@ -5,8 +5,8 @@ var mongoose = require('mongoose');
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:contracker');
 
-
 var Convention = require('./models/convention');
+var User = require('./models/user');
 
 var app = express();
 
@@ -16,6 +16,11 @@ app.use(bodyParser.urlencoded())
 
 app.get('/', function(req, res) {
   var indexPath = path.join(__dirname, '/index.html');
+  res.sendFile(indexPath);
+});
+
+app.get('/login', function(req, res) {
+  var indexPath = path.join(__dirname, '/login.html');
   res.sendFile(indexPath);
 });
 
@@ -47,6 +52,39 @@ app.post('/new', function(req, res) {
       newConvention.save();
       res.send(newConvention);
     }
+  });
+});
+
+app.post('/new_user', function(req, res) {
+  console.log(req.body)
+
+  User.findOne({ full_name: req.body.full_name }, function(err, user) {
+    if (err) return next(err);
+
+    if (user) {
+      return res.status(422).send({error: 'User Already Exists'});
+    } else {
+      console.log(req.body)
+      var data = req.body;
+      var newUser = new User(data);
+      newUser.save();
+      res.send(newUser);
+    }
+  });
+});
+
+app.post('/login', function(req, res) {
+
+  User.findOne({ userName: req.body.userName }, function(err, user) {
+    if (err) return next(err);
+    if (user && user.password === req.body.password) {
+      console.log(user)
+      res.send(user);
+    } else {
+      console.log('asdf')
+      res.status(422).send('username/password combination is incorrect');
+    }
+
   });
 });
 

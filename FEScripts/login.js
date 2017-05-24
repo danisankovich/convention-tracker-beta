@@ -9,15 +9,13 @@ $(document).ready(() => {
   $('#form_submit').submit((e) => {
     e.preventDefault();
 
-    const newUser = {};
+    const userStuff = {};
 
     const $data = $('form_submit div:input');
 
     const inputValues = [
       document.getElementById('userName'),
-      document.getElementById('full_name'),
       document.getElementById('password'),
-      document.getElementById('passwordConfirm'),
     ];
     let errors = false;
 
@@ -26,14 +24,10 @@ $(document).ready(() => {
         if (!input.value || input.value === "") {
           errors = true;
         }
-        newUser[input.id] = input.value;
+        userStuff[input.id] = input.value;
       }
     });
 
-    if (newUser.password !== newUser.passwordConfirm) {
-      alert('Passwords Don\'t Match');
-      return;
-    }
     if (errors) {
       alert("All Fields are Required");
       return;
@@ -41,15 +35,14 @@ $(document).ready(() => {
 
     $.ajax({
       method: 'POST',
-      url: 'new_user',
-      data: newUser,
+      url: 'login',
+      data: userStuff,
     }).then((result) => {
       localStorage.setItem('convention_tracker_user', JSON.stringify(result));
+      window.location.href = "/";
     }).catch((err) => {
-      console.log(err)
-    })
-
-    window.location.href = "/";
+      alert('Username/Password Combination Not Found');
+    });
   });
 
 });

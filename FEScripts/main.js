@@ -3,10 +3,11 @@ $(document).ready(() => {
   const userString = localStorage.getItem('convention_tracker_user') || "{}";
   const { userName, full_name } = JSON.parse(userString);
 
+  $('#usernameFullName').html(`<h2>Username: ${userName} &nbsp; &nbsp; Name: ${full_name}  &nbsp; &nbsp; <button id="logout" class='btn btn-danger'>Logout</button></h2>`)
   const allConventions = {};
 
   if (!userName) {
-    window.location.href = "new_user";
+    window.location.href = "login";
   }
   const tdString = `
     <tr class='data-row' id="{CONVENTION_ID}">
@@ -129,5 +130,10 @@ $(document).ready(() => {
     }).catch((err) => {
       console.log(err)
     })
+  });
+
+  $('#logout').on('click', () => {
+    localStorage.clear('convention_tracker_user');
+    window.location.href = "login";
   });
 });
