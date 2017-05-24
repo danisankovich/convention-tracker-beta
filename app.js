@@ -3,7 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser')
 var mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:contracker');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost:contracker');
 
 
 var Convention = require('./models/convention');
@@ -35,15 +35,15 @@ app.get('/conventions', function(req, res) {
 app.post('/new', function(req, res) {
   console.log(req.body)
 
-  Convention.findOne({ convention_name: req.body.convention_name }, (err, convention) => {
+  Convention.findOne({ convention_name: req.body.convention_name }, function(err, convention) {
     if (err) return next(err);
 
     if (convention) {
       return res.status(422).send({error: 'Convention Already Exists'});
     } else {
-      const data = req.body;
+      var data = req.body;
       data.creatorId = req.body.participant_list[0];
-      const newConvention = new Convention(data);
+      var newConvention = new Convention(data);
       newConvention.save();
       res.send(newConvention);
     }
@@ -51,7 +51,7 @@ app.post('/new', function(req, res) {
 });
 
 app.post('/join', function(req, res) {
-  Convention.findById(req.body._id, (err, convention) => {
+  Convention.findById(req.body._id, function(err, convention) {
     if (err) return next(err);
 
     if (convention.participant_list.indexOf(req.body.full_name) > -1) {
@@ -65,7 +65,7 @@ app.post('/join', function(req, res) {
 })
 
 app.post('/leave', function(req, res) {
-  Convention.findById(req.body._id, (err, convention) => {
+  Convention.findById(req.body._id, function(err, convention) {
     if (err) return next(err);
 
     convention.participant_list = req.body.participant_list;
