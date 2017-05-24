@@ -5,8 +5,6 @@ $(document).ready(() => {
 
   const allConventions = {};
 
-  console.log(userName, full_name)
-
   if (!userName) {
     window.location.href = "new_user";
   }
@@ -66,7 +64,7 @@ $(document).ready(() => {
 
       const participantList = $(`#${clickedId}`).children('.participant_list').html().split(', ');
       const idx = participantList.indexOf(full_name);
-      console.log(idx)
+
       if (idx > -1) {
         participantList.splice(idx, 1);
       }
@@ -76,8 +74,6 @@ $(document).ready(() => {
         url: 'leave',
         data: { _id: clickedId, participant_list: participantList },
       }).then((result) => {
-        console.log(result)
-
         $(`#${clickedId}`).children('.participant_list').html(participantList.toString().replace(/,/g, ', '));
       }).catch((err) => {
         alert('You Are Already Listed')
