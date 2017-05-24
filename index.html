@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <title>Convention Tracker</title>
+    <meta name="description" content="convention-tracker">
+    <meta name="author" content="Sankovich">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-10 col-md-offset-1">
+          <table class="table" id="table_stuff">
+            <tr>
+              <td>Convention Name</td>
+              <td>Location</td>
+              <td>Participants</td>
+              <td>Dates</td>
+              <td>Going?</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class='row'>
+        <form id="form_submit">
+          <div class="col-sm-12 col-md-10 col-md-offset-1">
+            <input class="form-control" type="text" placeholder="Convention Name" id="convention_name" />
+          </div>
+          <div class="col-sm-5 col-md-5 col-md-offset-1 col-lg-5 col-lg-offset-1">
+            <input class="form-control" type="date" placeholder="Convention Start Date" id="convention_start_date" />
+          </div>
+          <div class="col-sm-5 col-md-5 col-sm-offset-2 col-md-offset-0 col-lg-5">
+            <input class="form-control" type="date" placeholder="Convention End Date" id="convention_end_date" />
+          </div>
+          <div class="col-sm-12 col-md-10 col-md-offset-1">
+            <input class="form-control" type="text" placeholder="Convention Location" id="convention_location" />
+          </div>
+          <div class="col-sm-12 col-md-10 col-md-offset-1">
+            <input class="form-control btn btn-primary" type="submit">
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="main.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>
