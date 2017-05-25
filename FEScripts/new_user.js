@@ -11,8 +11,6 @@ $(document).ready(() => {
 
     const newUser = {};
 
-    const $data = $('form_submit div:input');
-
     const inputValues = [
       document.getElementById('userName'),
       document.getElementById('full_name'),
@@ -50,7 +48,6 @@ $(document).ready(() => {
     }).catch((err) => {
       console.log(err)
     })
-
   });
 
 });

@@ -24,7 +24,7 @@ $(document).ready(() => {
 
   const processTdString = (values) => {
     let tdStringCopy = tdString;
-    const participants = [...values.participant_list].toString().replace(/,/g, ', ');
+    const participants = [...values.participant_list].join(', ');
 
     tdStringCopy = tdStringCopy
       .replace(/{CONVENTION_ID}/g, values._id)
@@ -95,8 +95,6 @@ $(document).ready(() => {
     e.preventDefault();
 
     const values = {};
-
-    const $data = $('form_submit div:input');
 
     const inputValues = [
       document.getElementById('convention_name'),

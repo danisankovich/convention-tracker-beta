@@ -15,17 +15,17 @@ app.use(express.static(staticPath));
 app.use(bodyParser.urlencoded())
 
 app.get('/', function(req, res) {
-  var indexPath = path.join(__dirname, '/index.html');
+  var indexPath = path.join(__dirname, '/views/index.html');
   res.sendFile(indexPath);
 });
 
 app.get('/login', function(req, res) {
-  var indexPath = path.join(__dirname, '/login.html');
+  var indexPath = path.join(__dirname, '/views/login.html');
   res.sendFile(indexPath);
 });
 
 app.get('/new_user', function(req, res) {
-  var indexPath = path.join(__dirname, '/new_user.html');
+  var indexPath = path.join(__dirname, '/views/new_user.html');
   res.sendFile(indexPath);
 });
 
@@ -75,7 +75,6 @@ app.post('/new_user', function(req, res) {
     if (user) {
       return res.status(422).send({error: 'User Already Exists'});
     } else {
-      console.log(req.body)
       var data = req.body;
       var newUser = new User(data);
       newUser.save();
@@ -99,7 +98,7 @@ app.post('/login', function(req, res) {
   });
 });
 
-app.post('/join', function(req, res) {
+app.post('/join/', function(req, res) {
   Convention.findById(req.body._id, function(err, convention) {
     if (err) return next(err);
 

@@ -11,8 +11,6 @@ $(document).ready(() => {
 
     const userStuff = {};
 
-    const $data = $('form_submit div:input');
-
     const inputValues = [
       document.getElementById('userName'),
       document.getElementById('password'),
