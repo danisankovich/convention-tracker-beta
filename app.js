@@ -84,8 +84,8 @@ app.post('/new_user', function(req, res) {
 });
 
 app.post('/login', function(req, res) {
-
-  User.findOne({ userName: req.body.userName }, function(err, user) {
+  const loginUsername = req.body.userName.toLowerCase();
+  User.findOne({ userName: loginUsername }, function(err, user) {
     if (err) return next(err);
     if (user && user.password === req.body.password) {
       console.log(user)
